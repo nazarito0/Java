@@ -89,7 +89,7 @@ class Lake implements Comparable<Lake> {
         lakeList.add(new Lake("Blue Lake"));
         lakeList.add(new Lake("Green Lake"));
         lakeList.add(new Lake("Red Lake"));
-        lakeList.add(new Lake("Blue Lake"));
+        lakeList.add(new Lake("Blue Lake")); // дублікат
         lakeList.add(new Lake("Yellow Lake"));
 
         System.out.println("Original ArrayList:");
@@ -107,12 +107,14 @@ class Lake implements Comparable<Lake> {
         System.out.println("\nTreeSet (unique & sorted):");
         System.out.println(lakeTreeSet);
 
-        Map<String, Lake> lakeTreeMap = new TreeMap<>();
-        for (Lake lake : lakeList) {
-            lakeTreeMap.put(lake.getName(), lake);
-        }
-        System.out.println("\nTreeMap (key=name, value=Lake):");
-        for (Map.Entry<String, Lake> entry : lakeTreeMap.entrySet()) {
+        Map<String, String> lakeTreeMap = new TreeMap<>();
+        lakeTreeMap.put("Blue Lake", "Seattle");
+        lakeTreeMap.put("Green Lake", "Portland");
+        lakeTreeMap.put("Red Lake", "Chicago");
+        lakeTreeMap.put("Yellow Lake", "Denver");
+
+        System.out.println("\nTreeMap (key=name, value=city/location):");
+        for (Map.Entry<String, String> entry : lakeTreeMap.entrySet()) {
             System.out.println(entry.getKey() + " => " + entry.getValue());
         }
 
