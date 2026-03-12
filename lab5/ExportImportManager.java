@@ -153,7 +153,6 @@ public class ExportImportManager {
         }
     }
 
-    // Нова детальна вибірка
     private static void performQueryDetailed() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             Map<String, Integer> importSums = new HashMap<>();
