@@ -1,9 +1,9 @@
-// Інтерфейс для живих істот у водоймі
+
 interface Swimable {
     void swim();
 }
 
-// Абстрактний клас для водойм
+
 abstract class WaterBody {
     protected String name;
 
@@ -11,10 +11,10 @@ abstract class WaterBody {
         this.name = name;
     }
 
-    public abstract void describe();  // Абстрактний метод
+    public abstract void describe();
 }
 
-// Sealed class для обмеження типів води
+
 sealed class Water permits FreshWater, SaltWater {
     protected String waterType;
 
@@ -23,7 +23,7 @@ sealed class Water permits FreshWater, SaltWater {
     }
 }
 
-// Конкретні типи води
+
 final class FreshWater extends Water {
     public FreshWater() {
         this.waterType = "Freshwater";
@@ -36,14 +36,14 @@ final class SaltWater extends Water {
     }
 }
 
-// Основний клас озера
+
 public class Lake extends WaterBody {
 
-    private Water water;  // Композиція: озеро має воду
+    private Water water;
 
     public Lake(String name) {
         super(name);
-        this.water = new FreshWater();  // Озеро завжди має прісну воду
+        this.water = new FreshWater();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class Lake extends WaterBody {
         water.showWaterType();
     }
 
-    // Вкладений статичний клас для риби
+
     public static class Fish implements Swimable {
         private String species;
 
@@ -65,13 +65,13 @@ public class Lake extends WaterBody {
             System.out.println(species + " is swimming!");
         }
 
-        // Статичний метод для загальної інформації про риб
+
         public static void fishFacts() {
             System.out.println("Most fish can breathe underwater using gills.");
         }
     }
 
-    // Локальний клас для острова
+
     public void createIsland() {
         class Island {
             private String islandName;
@@ -92,15 +92,15 @@ public class Lake extends WaterBody {
     public static void main(String[] args) {
         Lake lake = new Lake("Blue Lake");
 
-        // Використання абстрактного методу
+
         lake.describe();
 
-        // Використання статичного класу та інтерфейсу
+
         Fish fish = new Fish("Salmon");
         fish.swim();
         Fish.fishFacts();
 
-        // Використання локального класу
+
         lake.createIsland();
     }
 }
