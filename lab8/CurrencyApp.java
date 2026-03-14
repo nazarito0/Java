@@ -2,7 +2,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-// Клас-сутність для валюти
 class Currency implements Serializable {
     int r030;
     String txt;
@@ -34,7 +33,6 @@ public class CurrencyApp {
         }
     }
 
-    // Сервер
     private static void runServer() {
         int port = 5000;
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -46,7 +44,6 @@ public class CurrencyApp {
 
                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
 
-                // Отримуємо JSON від НБУ
                 URL bankUrl = new URL("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json");
                 URLConnection connection = bankUrl.openConnection();
                 connection.connect();
@@ -57,10 +54,8 @@ public class CurrencyApp {
                     jsonBuilder.append(bankOutput.nextLine());
                 }
 
-                // Ручний парсинг JSON у масив Currency
                 List<Currency> currencyList = parseJsonCurrencies(jsonBuilder.toString());
 
-                // Відправляємо масив клієнту
                 out.writeObject(currencyList.toArray(new Currency[0]));
                 out.flush();
 
@@ -72,7 +67,6 @@ public class CurrencyApp {
         }
     }
 
-    // Клієнт
     private static void runClient() {
         String host = "localhost";
         int port = 5000;
@@ -91,15 +85,14 @@ public class CurrencyApp {
         }
     }
 
-    // Простий ручний парсер JSON (для навчального завдання)
     private static List<Currency> parseJsonCurrencies(String json) {
         List<Currency> list = new ArrayList<>();
         json = json.trim();
         if (json.startsWith("[") && json.endsWith("]")) {
-            json = json.substring(1, json.length() - 1); // прибираємо квадратні дужки
+            json = json.substring(1, json.length() - 1);
         }
 
-        String[] items = json.split("\\},\\{"); // розділяємо на окремі об'єкти
+        String[] items = json.split("\\},\\{");
 
         for (String item : items) {
             item = item.replaceAll("[\\{\\}]", "");
